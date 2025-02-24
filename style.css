@@ -6,26 +6,27 @@ label {
     display: block;
     padding: 10px;
     margin: 5px 0;
-    background-color: #3498db;
-    color: white;
+    background-color: #f0f0f0;
+    color: black;
     text-align: center;
-    border-radius: 5px;
+    border-radius: 12px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    font-size: 16px;
+    font-size: 24px;
+    font-family: "Josefin Sans";
 }
 
 label:hover {
-    background-color: #2980b9;
+    background-color: #fafafa;
 }
 
 .correct {
-    background-color: #2ecc71 !important;
+    background-color: #22c38e !important;
     cursor: default;
 }
 
 .incorrect {
-    background-color: #e74c3c !important;
+    background-color: #f55670 !important;
     cursor: default;
 }
 
