@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Adivinar Palabras</title>
+    <style>
+        .correct { color: green; font-weight: bold; }
+        .incorrect { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="guess-word">
+        <h3 id="quiz-question"></h3>
+        <form id="quiz-form"></form>
+        <p id="result" style="display:none;"></p>
+        <button id="next-question" style="display:none;">Siguiente definición</button>
+    </div>
+
+    <script>
+        const wordDefinitions = [
+            { word: "Epítome", definition: "Resumen o representación perfecta de algo." },
+            { word: "Lacónico", definition: "Que expresa algo con muy pocas palabras." },
+            { word: "Perenne", definition: "Que dura eternamente o por mucho tiempo." },
+            { word: "Crisálida", definition: "Fase de transformación de una mariposa." }
+        ];
+
+        let usedWords = [];
+
+        function loadNewQuestion() {
+            if (usedWords.length === wordDefinitions.length) {
+                usedWords = [];
+            }
+
+            let randomWordObj;
+            let attempts = 0;
+            do {
+                randomWordObj = wordDefinitions[Math.floor(Math.random() * wordDefinitions.length)];
+                attempts++;
+                if (attempts > 50) {
+                    usedWords = [];
+                    break;
+                }
+            } while (usedWords.includes(randomWordObj.word));
+
+            usedWords.push(randomWordObj.word);
+            const correctWord = randomWordObj.word;
+
+            const incorrectWords = wordDefinitions
+                .map(obj => obj.word)
+                .filter(word => word !== correctWord);
+
+            const shuffledIncorrect = incorrectWords.sort(() => 0.5 - Math.random()).slice(0, 3);
+            const options = [...shuffledIncorrect, correctWord].sort(() => 0.5 - Math.random());
+
+            document.getElementById('quiz-question').textContent = randomWordObj.definition;
+            const form = document.getElementById('quiz-form');
+            form.innerHTML = '';
+
+            options.forEach((option, index) => {
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = 'definition';
+                radio.id = 'option-' + index;
+                radio.value = option;
+
+                const label = document.createElement('label');
+                label.setAttribute('for', radio.id);
+                label.textContent = option;
+
+                form.appendChild(radio);
+                form.appendChild(label);
+                form.appendChild(document.createElement('br'));
+            });
+
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('next-question').style.display = 'none';
+
+            form.addEventListener('change', function () {
+                const selected = form.querySelector('input[name="definition"]:checked');
+                const result = document.getElementById('result');
+                const nextButton = document.getElementById('next-question');
+
+                if (selected) {
+                    form.querySelectorAll('input[name="definition"]').forEach(input => {
+                        input.disabled = true; // Bloquea las opciones tras la primera elección
+                    });
+
+                    if (selected.value === correctWord) {
+                        result.textContent = '¡Correcto! 🎉🐐';
+                        selected.nextElementSibling.classList.add('correct');
+                    } else {
+                        result.textContent = 'Palabra incorrecta. ❌';
+                        selected.nextElementSibling.classList.add('incorrect');
+                    }
+
+                    result.style.display = 'block';
+                    nextButton.style.display = 'inline';
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', loadNewQuestion);
+        document.getElementById('next-question').addEventListener('click', loadNewQuestion);
+    </script>
+</body>
+</html>
