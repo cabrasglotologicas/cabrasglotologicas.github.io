@@ -6,7 +6,7 @@ body {
     background-position: center; /* Centers the pattern */
 }
 
-.game.btn {
+.game-btn {
         padding: 12px;
         margin: 8px;
         color: white;
