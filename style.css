@@ -13,7 +13,7 @@ body {
     height: auto;
 }
 
-.game-btn-container {
+#game-btn-container {
     text-align: center;
 }
 .game-btn {
