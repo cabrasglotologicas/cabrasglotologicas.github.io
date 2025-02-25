@@ -32,7 +32,7 @@
             return words;
         }
 
-        // Use the loaded words
+        const wordDefinitions = [];
         loadWords().then(words => {
             const randomWordObj = words[Math.floor(Math.random() * words.length)];
             wordDefinitions.push(randomWordObj);
