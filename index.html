@@ -31,9 +31,14 @@
                 console.log("CSV Loaded:", text); // Debugging
 
                 wordDefinitions = text.split(/\r?\n/).slice(1).map(line => {
-                    const [word, definition] = line.split("*");
-                    return { word: word.trim(), definition: definition.trim() };
-                });
+                    const match = line.match(/^([^,]+),\s*"(.*)"$/);
+                    if (match) {
+                        return { word: match[1].trim(), definition: match[2].trim() };
+                    } else {
+                        console.warn("Skipping invalid line:", line);
+                        return null;
+                    }
+                }).filter(entry => entry !== null);
 
                 console.log("Parsed Words:", wordDefinitions);
                 loadNewQuestion(); // Start quiz after words load
