@@ -82,7 +82,7 @@
             const shuffledIncorrect = incorrectDefs.sort(() => 0.5 - Math.random()).slice(0, 3);
             const options = [...shuffledIncorrect, correctDef].sort(() => 0.5 - Math.random());
 
-            document.getElementById('quiz-question').textContent = "¿Qué significa " + randomWordObj.word +"?";
+            document.getElementById('quiz-question').textContent = "¿Qué significa «" + randomWordObj.word +"»?";
             const form = document.getElementById('quiz-form');
             form.innerHTML = ''; // Clear previous content
 
