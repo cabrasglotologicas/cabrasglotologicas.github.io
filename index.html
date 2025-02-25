@@ -28,14 +28,14 @@
                 const [word, definition] = line.split(",");
                 return { word: word.trim(), definition: definition.trim() };
             });
-
+        
             return words;
         }
 
         // Use the loaded words
         loadWords().then(words => {
             const randomWordObj = words[Math.floor(Math.random() * words.length)];
-            console.log(randomWordObj); // Do something with it
+            wordDefinitions.push(randomWordObj);
         });
         let usedWords = [];
 
