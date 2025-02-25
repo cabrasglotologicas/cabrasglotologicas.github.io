@@ -43,19 +43,19 @@ label:hover {
 }
 
 .correct {
-    background-color: #22c38e;
-    cursor: default;
-    color:white;
-    font-style: bold;
-    border: 3px solid #1da87a;
+    background-color: #22c38e !important;
+    cursor: default !important;
+    color:white !important;
+    font-style: bold !important;
+    border: 3px solid #1da87a !important;
 }
 
 .incorrect {
-    background-color: #f55670;
-    cursor: default;
-    color:white;
-    font-style: bold;
-    border: 3px solid #cf485f;
+    background-color: #f55670 !important;
+    cursor: default !important;
+    color:white !important;
+    font-style: bold !important;
+    border: 3px solid #cf485f !important;
 }
 
 input[type="radio"]:checked ~ label {
