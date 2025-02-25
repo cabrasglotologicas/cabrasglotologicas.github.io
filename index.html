@@ -138,6 +138,11 @@
             loadWords(); // Load words first
             document.getElementById('next-question').addEventListener('click', loadNewQuestion);
         });
+        document.querySelectorAll("label").forEach(label => {
+            label.addEventListener("touchend", function () {
+                this.blur();
+            });
+        });
     </script>
 </body>
 </html>
