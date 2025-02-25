@@ -49,8 +49,22 @@ label:hover {
     font-style: bold !important;
     border: 3px solid #1da87a !important;
 }
+.correct:hover {
+    background-color: #22c38e !important;
+    cursor: default !important;
+    color:white !important;
+    font-style: bold !important;
+    border: 3px solid #1da87a !important;
+}
 
 .incorrect {
+    background-color: #f55670 !important;
+    cursor: default !important;
+    color:white !important;
+    font-style: bold !important;
+    border: 3px solid #cf485f !important;
+}
+.incorrect:hover {
     background-color: #f55670 !important;
     cursor: default !important;
     color:white !important;
