@@ -6,6 +6,13 @@ body {
     background-position: center; /* Centers the pattern */
 }
 
+.logo {
+    display: block;
+    margin: 0 auto; /* Centers the image */
+    max-width: 100px; /* Adjust size as needed */
+    height: auto;
+}
+
 .game-btn {
         padding: 12px;
         margin: 8px;
