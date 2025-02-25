@@ -9,6 +9,7 @@
     <title>Adivina la palabra</title>
 </head>
 <body>
+    <a href="index.html" class="return-button">⮐ Volver</a>
     <div class="guess-def">
         <h2 id="title">Adivina la definición</h2>
         <h3 id="quiz-question"></h3>
@@ -121,7 +122,7 @@
                     form.querySelectorAll('input[name="word"]').forEach(input => input.disabled = true);
                     form.querySelectorAll('label').forEach(label => label.classList.remove('correct', 'incorrect'));
 
-                    if (selected.value === correctWord) {
+                    if (selected.value === correctDef) {
                         result.textContent = '¡Correcto! 🎉🐐';
                         selected.nextElementSibling.classList.add('correct');
                     } else {
