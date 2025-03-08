@@ -35,11 +35,7 @@ body {
     transform: scale(1.1);
 }
 
-.guess-word {
-    margin-top: 60px; /* Push content down so it doesn’t overlap */
-    text-align: center;
-}
-.guess-def {
+.guess-word, .guess-def, .guess-author {
     margin-top: 60px; /* Push content down so it doesn’t overlap */
     text-align: center;
 }
