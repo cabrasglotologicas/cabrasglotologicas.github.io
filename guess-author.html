@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <title>Adivina el autor</title>
+</head>
+<body>
+    <a href="https://cabrasglotologicas.github.io" class="return-button"> ← Volver</a>
+    <div class="guess-author">
+        <h2 id="title">Adivina el autor</h2>
+        <h3 id="quiz-question"></h3>
+        <form id="quiz-form"></form>
+        <p id="result" style="display:none;"></p>
+        <div class="button-container">
+            <button id="next-question" style="display:none;">Siguiente obra</button>
+            <a href="https://www.instagram.com/cabrasglotologicas" target="_blank" class="instagram-button">📷 Nuestro Instagram</a>
+        </div>        
+    </div>
+
+    <script>
+        let books = []; // Store words here
+        let usedBooks = []; // Track words already used
+
+        async function loadWords() {
+            try {
+                const response = await fetch('books.csv');
+                if (!response.ok) throw new Error("Failed to fetch CSV");
+
+                const text = await response.text();
+                console.log("CSV Loaded:", text); // Debugging
+
+                books = text.split(/\r?\n/).slice(1).map(line => {
+                    const match = line.match(/^([^,]+),\s*"(.*)"$/);
+                    if (match) {
+                        return { author: match[1].trim(), book: match[2].trim() };
+                    } else {
+                        console.warn("Skipping invalid line:", line);
+                        return null;
+                    }
+                }).filter(entry => entry !== null);
+
+                console.log("Parsed Books:", books);
+                loadNewQuestion(); // Start quiz after words load
+            } catch (error) {
+                console.error("Error loading books:", error);
+            }
+        }
+
+        function loadNewQuestion() {
+            if (books.length === 0) {
+                console.error("No books loaded");
+                return;
+            }
+
+            if (usedBooks.length === books.length) {
+                usedBooks = []; // Reset if all words have been used
+            }
+
+            let randomBookObj;
+            let attempts = 0;
+            do {
+                randomBookObj = books[Math.floor(Math.random() * books.length)];
+                attempts++;
+                if (attempts > 50) {
+                    usedBooks = []; // Avoid infinite loop
+                    break;
+                }
+            } while (usedBooks.includes(randomBookObj.book));
+
+            usedBooks.push(randomBookObj.book);
+            const correctAuthor = randomWordObj.author;
+
+            // Get three incorrect words
+            const incorrectAuthors = books
+                .map(obj => obj.author)
+                .filter(author => author !== correctAuthor);
+
+            const shuffledIncorrect = incorrectAuthors.sort(() => 0.5 - Math.random()).slice(0, 3);
+            const options = [...shuffledIncorrect, correctAuthor].sort(() => 0.5 - Math.random());
+
+            document.getElementById('quiz-question').textContent = randomBookObj.book;
+            const form = document.getElementById('quiz-form');
+            form.innerHTML = ''; // Clear previous content
+
+            const optionsContainer = document.createElement('div');
+            optionsContainer.classList.add('options-container');
+
+            options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.classList.add('option');
+
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = 'book';
+                radio.id = 'option-' + index;
+                radio.value = option;
+
+                const label = document.createElement('label');
+                label.setAttribute('for', radio.id);
+                label.textContent = option;
+
+                optionDiv.appendChild(radio);
+                optionDiv.appendChild(label);
+                optionsContainer.appendChild(optionDiv);
+            });
+
+            form.appendChild(optionsContainer);
+
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('next-question').style.display = 'none';
+
+            form.addEventListener('change', function () {
+                const selected = form.querySelector('input[name="book"]:checked');
+                const result = document.getElementById('result');
+                const nextButton = document.getElementById('next-question');
+
+                if (selected) {
+                    form.querySelectorAll('input[name="book"]').forEach(input => input.disabled = true);
+                    form.querySelectorAll('label').forEach(label => label.classList.remove('correct', 'incorrect'));
+
+                    if (selected.value === correctAuthor) {
+                        result.textContent = '¡Correcto! 🎉🐐';
+                        selected.nextElementSibling.classList.add('correct');
+                    } else {
+                        result.textContent = 'Autor incorrecto. ❌';
+                        selected.nextElementSibling.classList.add('incorrect');
+                    }
+
+                    result.style.display = 'block';
+                    nextButton.style.display = 'inline';
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadWords(); // Load words first
+            document.getElementById('next-question').addEventListener('click', loadNewQuestion);
+        });
+        document.querySelectorAll("label").forEach(label => {
+            label.addEventListener("touchend", function () {
+                this.blur();
+            });
+        });
+    </script>
+</body>
+</html>
