@@ -87,7 +87,7 @@
             const shuffledIncorrect = incorrectAuthors.sort(() => 0.5 - Math.random()).slice(0, 3);
             const options = [...shuffledIncorrect, correctAuthor].sort(() => 0.5 - Math.random());
 
-            document.getElementById('quiz-question').textContent = randomBookObj.book + "(" + randomBookObj.genre + ")";
+            document.getElementById('quiz-question').textContent = randomBookObj.book + " (" + randomBookObj.genre + ")";
             const form = document.getElementById('quiz-form');
             form.innerHTML = ''; // Clear previous content
 
