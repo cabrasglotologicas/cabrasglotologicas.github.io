@@ -16,12 +16,12 @@
         <h3 id="quiz-question"></h3>
         <form id="quiz-form"></form>
         <p id="result" style="display:none;"></p>
+        <p id="final-message" style="display:none;"></p>
         <div class="button-container">
+            <button id="restart-game" style="display:none; margin-top:10px;">Volver a empezar</button>
             <button id="next-question" style="display:none;">Siguiente obra</button>
             <a href="https://www.instagram.com/cabrasglotologicas" target="_blank" class="instagram-button">📷 Nuestro Instagram</a>
-        </div>
-        <p id="final-message" style="display:none;"></p>
-        <button id="restart-game" style="display:none; margin-top:10px;">Volver a empezar</button>
+        </div>        
     </div>
 
     <script>
@@ -90,6 +90,8 @@
                 document.getElementById('quiz-form').innerHTML = '';
                 document.getElementById('quiz-question').textContent = '';
                 document.getElementById('next-question').style.display = 'none';
+                document.getElementById('result').style.display = 'none';
+                document.getElementById('final-message').style.display = 'inline';
                 document.getElementById('restart-game').style.display = 'inline';
             
                 return;
