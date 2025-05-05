@@ -12,6 +12,7 @@
     <a href="https://cabrasglotologicas.github.io" class="return-button"> ← Volver</a>
     <div class="guess-author">
         <h2 id="title">Adivina el autor</h2>
+        <p id="score">✅ 0 correctas | ❌ 0 incorrectas</p>
         <h3 id="quiz-question"></h3>
         <form id="quiz-form"></form>
         <p id="result" style="display:none;"></p>
@@ -24,6 +25,8 @@
     <script>
         let books = []; // Store words here
         let usedBooks = []; // Track words already used
+        let correctCount = 0;
+        let incorrectCount = 0;
 
         async function loadWords() {
             try {
@@ -139,6 +142,19 @@
                     result.style.display = 'block';
                     nextButton.style.display = 'inline';
                 }
+
+                if (selected.value === correctAuthor) {
+                    result.textContent = '¡Correcto! 🎉🐐';
+                    selected.nextElementSibling.classList.add('correct');
+                    correctCount++;
+                } else {
+                    result.textContent = 'Autor incorrecto. ❌';
+                    selected.nextElementSibling.classList.add('incorrect');
+                    incorrectCount++;
+                }
+                
+                // Update score display
+                document.getElementById('score').textContent = `✅ ${correctCount} correctas | ❌ ${incorrectCount} incorrectas`;
             });
         }
 
