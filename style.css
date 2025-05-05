@@ -1,4 +1,4 @@
-body {
+.body {
     background-color: #fff5e0; /* Set your solid background color */
     background-image: url('background.png'); /* Replace with your pattern image */
     background-size: 200px 200px; /* Adjust to match the pattern size */
@@ -137,7 +137,7 @@ input[type="radio"]:checked ~ label {
     margin-top: 20px; /* Space from the content above */
 }
 
-#next-question, #restart-game {
+#next-question, #restart-game, #end-game {
         padding: 12px;
         margin: 8px;
         color: white;
@@ -151,7 +151,7 @@ input[type="radio"]:checked ~ label {
         font-size: 20px;
         font-family: "Josefin Sans";
 }
-#next-question:hover, #restart-game:hover {
+#next-question:hover, #restart-game:hover, #end-game:hover {
     background-color: #f7c96e;
     transform: scale(1.1);
 }
