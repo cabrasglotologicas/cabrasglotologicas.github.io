@@ -130,7 +130,7 @@
             do {
                 randomBookObj = books[Math.floor(Math.random() * books.length)];
                 attempts++;
-                if (attempts > 50) {
+                if (attempts > 3000) {
                     usedBooks = []; // Avoid infinite loop
                     break;
                 }
