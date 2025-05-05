@@ -147,34 +147,35 @@
 
             document.getElementById('result').style.display = 'none';
             document.getElementById('next-question').style.display = 'none';
-
-            form.addEventListener('change', function () {
-                const selected = form.querySelector('input[name="book"]:checked');
-                const result = document.getElementById('result');
-                const nextButton = document.getElementById('next-question');
-
-                if (selected) {
-                    form.querySelectorAll('input[name="book"]').forEach(input => input.disabled = true);
-                    form.querySelectorAll('label').forEach(label => label.classList.remove('correct', 'incorrect'));
-
-                    if (selected.value === correctAuthor) {
-                        result.textContent = '¡Correcto! 🎉🐐';
-                        selected.nextElementSibling.classList.add('correct');
-                        correctCount++;
-                    } else {
-                        result.textContent = 'Autor incorrecto. ❌';
-                        selected.nextElementSibling.classList.add('incorrect');
-                        incorrectCount++;
-                    }
-
-                    result.style.display = 'block';
-                    nextButton.style.display = 'inline';
-                }
-                
-                // Update score display
-                document.getElementById('score').textContent = `✅ ${correctCount} correctas | ❌ ${incorrectCount} incorrectas`;
-            });
         }
+        
+        form.addEventListener('change', function () {
+            const selected = form.querySelector('input[name="book"]:checked');
+            const result = document.getElementById('result');
+            const nextButton = document.getElementById('next-question');
+
+            if (selected) {
+                form.querySelectorAll('input[name="book"]').forEach(input => input.disabled = true);
+                form.querySelectorAll('label').forEach(label => label.classList.remove('correct', 'incorrect'));
+
+                if (selected.value === correctAuthor) {
+                    result.textContent = '¡Correcto! 🎉🐐';
+                    selected.nextElementSibling.classList.add('correct');
+                    correctCount++;
+                } else {
+                    result.textContent = 'Autor incorrecto. ❌';
+                    selected.nextElementSibling.classList.add('incorrect');
+                    incorrectCount++;
+                }
+
+                result.style.display = 'block';
+                nextButton.style.display = 'inline';
+            }
+            
+            // Update score display
+            document.getElementById('score').textContent = `✅ ${correctCount} correctas | ❌ ${incorrectCount} incorrectas`;
+        });
+        
         document.getElementById('restart-game').addEventListener('click', () => {
             usedBooks = [];
             correctCount = 0;
