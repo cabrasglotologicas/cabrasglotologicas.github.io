@@ -108,7 +108,7 @@
 
             usedBooks.push(randomBookObj.book);
             console.log(usedBooks);
-            const currentCorrectAuthor = randomBookObj.author;
+            currentCorrectAuthor = randomBookObj.author;
 
             // Get three incorrect words
             const incorrectAuthors = [...new Set(books
@@ -148,10 +148,10 @@
 
             document.getElementById('result').style.display = 'none';
             document.getElementById('next-question').style.display = 'none';
-        }          
-            // Update score display
-            document.getElementById('score').textContent = `✅ ${correctCount} correctas | ❌ ${incorrectCount} incorrectas`;
-        });
+        }    
+        
+        // Update score display
+        document.getElementById('score').textContent = `✅ ${correctCount} correctas | ❌ ${incorrectCount} incorrectas`;
         
         document.getElementById('restart-game').addEventListener('click', () => {
             usedBooks = [];
