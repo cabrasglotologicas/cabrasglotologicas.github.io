@@ -30,6 +30,7 @@
         let correctCount = 0;
         let incorrectCount = 0;
         let score = 0;
+        let currentCorrectAuthor = "";
 
         async function loadWords() {
             try {
@@ -107,15 +108,15 @@
 
             usedBooks.push(randomBookObj.book);
             console.log(usedBooks);
-            const correctAuthor = randomBookObj.author;
+            const currentCorrectAuthor = randomBookObj.author;
 
             // Get three incorrect words
             const incorrectAuthors = [...new Set(books
                 .map(obj => obj.author)
-                .filter(author => author !== correctAuthor))];
+                .filter(author => author !== currentCorrectAuthor))];
 
             const shuffledIncorrect = incorrectAuthors.sort(() => 0.5 - Math.random()).slice(0, 3);
-            const options = [...shuffledIncorrect, correctAuthor].sort(() => 0.5 - Math.random());
+            const options = [...shuffledIncorrect, currentCorrectAuthor].sort(() => 0.5 - Math.random());
 
             document.getElementById('quiz-question').textContent = randomBookObj.book + " (" + randomBookObj.genre + ")";
             const form = document.getElementById('quiz-form');
@@ -142,36 +143,12 @@
                 optionDiv.appendChild(label);
                 optionsContainer.appendChild(optionDiv);
             });
-
+            form.querySelectorAll('label').forEach(label => label.classList.remove('correct', 'incorrect'));
             form.appendChild(optionsContainer);
 
             document.getElementById('result').style.display = 'none';
             document.getElementById('next-question').style.display = 'none';
-        }
-        
-        form.addEventListener('change', function () {
-            const selected = form.querySelector('input[name="book"]:checked');
-            const result = document.getElementById('result');
-            const nextButton = document.getElementById('next-question');
-
-            if (selected) {
-                form.querySelectorAll('input[name="book"]').forEach(input => input.disabled = true);
-                form.querySelectorAll('label').forEach(label => label.classList.remove('correct', 'incorrect'));
-
-                if (selected.value === correctAuthor) {
-                    result.textContent = '¡Correcto! 🎉🐐';
-                    selected.nextElementSibling.classList.add('correct');
-                    correctCount++;
-                } else {
-                    result.textContent = 'Autor incorrecto. ❌';
-                    selected.nextElementSibling.classList.add('incorrect');
-                    incorrectCount++;
-                }
-
-                result.style.display = 'block';
-                nextButton.style.display = 'inline';
-            }
-            
+        }          
             // Update score display
             document.getElementById('score').textContent = `✅ ${correctCount} correctas | ❌ ${incorrectCount} incorrectas`;
         });
@@ -188,6 +165,30 @@
         document.addEventListener('DOMContentLoaded', () => {
             loadWords(); // Load words first
             document.getElementById('next-question').addEventListener('click', loadNewQuestion);
+
+            const form = document.getElementById('quiz-form');
+            form.addEventListener('change', function () {
+                const selected = form.querySelector('input[name="book"]:checked');
+                const result = document.getElementById('result');
+                const nextButton = document.getElementById('next-question');
+        
+                if (selected && !selected.disabled) {
+                    form.querySelectorAll('input[name="book"]').forEach(input => input.disabled = true);
+        
+                    if (selected.value === currentCorrectAuthor) {
+                        result.textContent = '¡Correcto! 🎉🐐';
+                        selected.nextElementSibling.classList.add('correct');
+                        correctCount++;
+                    } else {
+                        result.textContent = 'Autor incorrecto. ❌';
+                        selected.nextElementSibling.classList.add('incorrect');
+                        incorrectCount++;
+                    }
+        
+                    result.style.display = 'block';
+                    nextButton.style.display = 'inline';
+                    document.getElementById('score').textContent = `✅ ${correctCount} correctas | ❌ ${incorrectCount} incorrectas`;
+                }
         });
         document.querySelectorAll("label").forEach(label => {
             label.addEventListener("touchend", function () {
