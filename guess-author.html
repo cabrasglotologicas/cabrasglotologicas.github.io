@@ -134,9 +134,9 @@
                     usedBooks = []; // Avoid infinite loop
                     break;
                 }
-            } while (usedBooks.includes(randomBookObj.book));
+            } while (usedBooks.includes(randomBookObj));
 
-            usedBooks.push(randomBookObj.book);
+            usedBooks.push(randomBookObj);
             console.log(usedBooks);
             currentCorrectAuthor = randomBookObj.author;
 
