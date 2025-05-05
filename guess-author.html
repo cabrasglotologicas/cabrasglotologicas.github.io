@@ -20,7 +20,7 @@
             <button id="next-question" style="display:none;">Siguiente obra</button>
             <a href="https://www.instagram.com/cabrasglotologicas" target="_blank" class="instagram-button">📷 Nuestro Instagram</a>
         </div>
-        
+        <p id="final-message" style="display:none;"></p>
         <button id="restart-game" style="display:none; margin-top:10px;">Volver a empezar</button>
     </div>
 
@@ -84,6 +84,7 @@
                     } else {
                         finalMessage.textContent = `¡Ánimo! Todos empezamos por algún sitio. 🙌 ¡Inténtalo de nuevo y a por todas! Has acertado el ${score}% de las preguntas.`;
                 finalMessage.style.display = 'block';
+                    }
         
                 document.getElementById('quiz-form').innerHTML = '';
                 document.getElementById('quiz-question').textContent = '';
