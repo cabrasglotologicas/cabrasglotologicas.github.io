@@ -19,7 +19,9 @@
         <div class="button-container">
             <button id="next-question" style="display:none;">Siguiente obra</button>
             <a href="https://www.instagram.com/cabrasglotologicas" target="_blank" class="instagram-button">📷 Nuestro Instagram</a>
-        </div>        
+        </div>
+        
+        <button id="restart-game" style="display:none; margin-top:10px;">Volver a empezar</button>
     </div>
 
     <script>
@@ -27,6 +29,7 @@
         let usedBooks = []; // Track words already used
         let correctCount = 0;
         let incorrectCount = 0;
+        let score = 0;
 
         async function loadWords() {
             try {
@@ -65,7 +68,29 @@
             }
 
             if (usedBooks.length === books.length) {
-                usedBooks = []; // Reset if all words have been used
+                 // Show final score message
+                const finalMessage = document.getElementById('final-message');
+                score = Math.round(100 * correctCount / (correctCount + incorrectCount));
+                    if (score = 100) {
+                        finalMessage.textContent = `¡Perfecto! 🏆 Has acertado todas y cada una de las preguntas. ¡Eres un@ maestr@ de la literatura! 🐐`;
+                    } else if (score >= 90) {
+                        finalMessage.textContent = `¡Excelente trabajo! 🎉 Has acertado prácticamente todas las preguntas, el ${score}%, aunque un desliz lo tiene cualquiera. ¡Sigue así!`;
+                    } else if (score > 75) {
+                        finalMessage.textContent = `Muy bien! 💪 Se nota que sabes bastante de literatura, has acertado el ${score}% de las preguntas!`;
+                    } else if (score >= 50) {
+                        finalMessage.textContent = `Está muy bien, pero aún puedes mejorar. 📚 ¡Sigue practicando, te queda mucho por aprender! Has acertado el ${score}% de las preguntas.`;
+                    } else if (score >= 25) {
+                        finalMessage.textContent = `Ha sido difícil, pero lo has intentado. 🐐 ¡No te rindas, ya sabes mucha más literatura que la mayoría de la población! Has acertado el ${score}% de las preguntas.`;
+                    } else {
+                        finalMessage.textContent = `¡Ánimo! Todos empezamos por algún sitio. 🙌 ¡Inténtalo de nuevo y a por todas! Has acertado el ${score}% de las preguntas.`;
+                finalMessage.style.display = 'block';
+        
+                document.getElementById('quiz-form').innerHTML = '';
+                document.getElementById('quiz-question').textContent = '';
+                document.getElementById('next-question').style.display = 'none';
+                document.getElementById('restart-game').style.display = 'inline';
+            
+                return;
             }
 
             let randomBookObj;
@@ -134,30 +159,30 @@
                     if (selected.value === correctAuthor) {
                         result.textContent = '¡Correcto! 🎉🐐';
                         selected.nextElementSibling.classList.add('correct');
+                        correctCount++;
                     } else {
                         result.textContent = 'Autor incorrecto. ❌';
                         selected.nextElementSibling.classList.add('incorrect');
+                        incorrectCount++;
                     }
 
                     result.style.display = 'block';
                     nextButton.style.display = 'inline';
-                }
-
-                if (selected.value === correctAuthor) {
-                    result.textContent = '¡Correcto! 🎉🐐';
-                    selected.nextElementSibling.classList.add('correct');
-                    correctCount++;
-                } else {
-                    result.textContent = 'Autor incorrecto. ❌';
-                    selected.nextElementSibling.classList.add('incorrect');
-                    incorrectCount++;
                 }
                 
                 // Update score display
                 document.getElementById('score').textContent = `✅ ${correctCount} correctas | ❌ ${incorrectCount} incorrectas`;
             });
         }
-
+        document.getElementById('restart-game').addEventListener('click', () => {
+            usedBooks = [];
+            correctCount = 0;
+            incorrectCount = 0;
+            document.getElementById('score').textContent = `✅ 0 correctas | ❌ 0 incorrectas`;
+            document.getElementById('final-message').style.display = 'none';
+            document.getElementById('restart-game').style.display = 'none';
+            loadNewQuestion();
+        });
         document.addEventListener('DOMContentLoaded', () => {
             loadWords(); // Load words first
             document.getElementById('next-question').addEventListener('click', loadNewQuestion);
