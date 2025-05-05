@@ -117,8 +117,21 @@
                 .map(obj => obj.author)
                 .filter(author => author !== currentCorrectAuthor))];
 
-            const shuffledIncorrect = incorrectAuthors.sort(() => 0.5 - Math.random()).slice(0, 3);
-            const options = [...shuffledIncorrect, currentCorrectAuthor].sort(() => 0.5 - Math.random());
+            // Random sorting algorithm chatgpt told me and i blindly have faith in
+            // Step 1: Pick 3 random incorrect authors
+            const shuffledIncorrect = [...incorrectAuthors];
+            for (let i = shuffledIncorrect.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffledIncorrect[i], shuffledIncorrect[j]] = [shuffledIncorrect[j], shuffledIncorrect[i]];
+            }
+            const selectedIncorrect = shuffledIncorrect.slice(0, 3);
+            
+            // Step 2: Add the correct one and shuffle all 4
+            const allOptions = [...selectedIncorrect, currentCorrectAuthor];
+            for (let i = allOptions.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [allOptions[i], allOptions[j]] = [allOptions[j], allOptions[i]];
+            }
 
             document.getElementById('quiz-question').textContent = randomBookObj.book + " (" + randomBookObj.genre + ")";
             const form = document.getElementById('quiz-form');
