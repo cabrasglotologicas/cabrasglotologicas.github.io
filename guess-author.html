@@ -71,7 +71,7 @@
                  // Show final score message
                 const finalMessage = document.getElementById('final-message');
                 score = Math.round(100 * correctCount / (correctCount + incorrectCount));
-                    if (score = 100) {
+                    if (score === 100) {
                         finalMessage.textContent = `¡Perfecto! 🏆 Has acertado todas y cada una de las preguntas. ¡Eres un@ maestr@ de la literatura! 🐐`;
                     } else if (score >= 90) {
                         finalMessage.textContent = `¡Excelente trabajo! 🎉 Has acertado prácticamente todas las preguntas, el ${score}%, aunque un desliz lo tiene cualquiera. ¡Sigue así!`;
