@@ -75,15 +75,15 @@
                     if (score === 100) {
                         finalMessage.textContent = `¡Perfecto! 🏆 Has acertado todas y cada una de las preguntas. ¡Eres un@ maestr@ de la literatura! 🐐`;
                     } else if (score >= 90) {
-                        finalMessage.textContent = `¡Excelente trabajo! 🎉 Has acertado prácticamente todas las preguntas, el ${score}%, aunque un desliz lo tiene cualquiera. ¡Sigue así!`;
+                        finalMessage.textContent = `¡Excelente trabajo! 🎉 Has acertado prácticamente todas las preguntas, el <strong>${score}%</strong>, aunque un desliz lo tiene cualquiera. ¡Sigue así!`;
                     } else if (score > 75) {
-                        finalMessage.textContent = `Muy bien! 💪 Se nota que sabes bastante de literatura, has acertado el ${score}% de las preguntas!`;
+                        finalMessage.textContent = `Muy bien! 💪 Se nota que sabes bastante de literatura, has acertado el <strong>${score}%</strong> de las preguntas!`;
                     } else if (score >= 50) {
-                        finalMessage.textContent = `Está muy bien, pero aún puedes mejorar. 📚 ¡Sigue practicando, te queda mucho por aprender! Has acertado el ${score}% de las preguntas.`;
+                        finalMessage.textContent = `Está muy bien, pero aún puedes mejorar. 📚 ¡Sigue practicando, te queda mucho por aprender! Has acertado el <strong>${score}%</strong> de las preguntas.`;
                     } else if (score >= 25) {
-                        finalMessage.textContent = `Ha sido difícil, pero lo has intentado. 🐐 ¡No te rindas, ya sabes mucha más literatura que la mayoría de la población! Has acertado el ${score}% de las preguntas.`;
+                        finalMessage.textContent = `Ha sido difícil, pero lo has intentado. 🐐 ¡No te rindas, ya sabes mucha más literatura que la mayoría de la población! Has acertado el <strong>${score}%</strong> de las preguntas.`;
                     } else {
-                        finalMessage.textContent = `¡Ánimo! Todos empezamos por algún sitio. 🙌 ¡Inténtalo de nuevo y a por todas! Has acertado el ${score}% de las preguntas.`;
+                        finalMessage.textContent = `¡Ánimo! Todos empezamos por algún sitio. 🙌 ¡Inténtalo de nuevo y a por todas! Has acertado el <strong>${score}%</strong> de las preguntas.`;
                 finalMessage.style.display = 'block';
                     }
         
